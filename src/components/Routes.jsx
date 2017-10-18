@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
+import Classes from './classes';
 import Collect from './collect';
 import Details from './details';
 import Edit from './edit';
 import Error404 from './error404';
-import Classes from './classes';
 import Login from './login';
 
 const Routes = () => (
