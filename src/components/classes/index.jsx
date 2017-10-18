@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Groups extends React.Component {
+class Classes extends React.Component {
     render() {
         return (
             <div>
@@ -10,4 +10,4 @@ class Groups extends React.Component {
     }
 }
 
-export default Groups;
+export default Classes;
