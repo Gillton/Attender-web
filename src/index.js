@@ -12,10 +12,15 @@ import App from './components/App';
 import rootReducer from './reducers/rootReducer';
 import registerServiceWorker from './registerServiceWorker';
 
+import { init } from './actions/authActions';
+
 const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(thunk))
 );
+
+
+store.dispatch(init());
 
 ReactDOM.render((
     <Provider store={store}>
