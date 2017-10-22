@@ -1,6 +1,17 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import { getClasses } from '../../actions/classActions';
+
 class Classes extends React.Component {
+
+    componentDidMount() {
+        if (!this.props.classes.fetching && !this.props.classes.fetched) {
+            this.props.getClasses();
+        }
+    }
+
     render() {
         return (
             <div>
@@ -10,4 +21,10 @@ class Classes extends React.Component {
     }
 }
 
-export default Classes;
+function mapStateToProps(state) {
+    return {
+        classes: state.classes
+    }
+}
+
+export default connect(mapStateToProps, { getClasses })(Classes);
