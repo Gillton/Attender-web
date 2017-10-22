@@ -23,7 +23,7 @@ export function init() {
     let accessToken = hello('aad').getAuthResponse().access_token;
 
     if (auth)
-        axios.defaults.headers.common['Authorization'] = 'Bearer: ' + accessToken;
+        axios.defaults.headers.common['Authorization'] = accessToken;
 
     return dispatch => {
         dispatch({
