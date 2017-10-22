@@ -19,7 +19,6 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(thunk))
 );
 
-
 store.dispatch(init());
 
 ReactDOM.render((
