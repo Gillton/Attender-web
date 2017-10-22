@@ -1,8 +1,9 @@
 import { Client } from 'msgraph-sdk-javascript';
 
-import { login } from './authActions';
+// import { login } from './authActions';
 import { 
     GET_USER_START, GET_USER_ERROR, GET_USER_END,
+    SET_AUTH
 } from './types';
 
 let client = Client.init({
@@ -28,18 +29,24 @@ export function getMe() {
                     }
                 });
             else {
-                _handleError(err);
-                dispatch({type: GET_USER_ERROR})
+                _handleError(err, dispatch);
             }
         });
     }
 }
 
-function _handleError(err) {
+function _handleError(err, dispatch) {
+    dispatch({type: GET_USER_ERROR});
+
+    dispatch({type: SET_AUTH, payload: {
+        isAuthenticated: false,
+        accessToken: ''
+    }})
+
     console.log(err.code + ' - ' + err.message);
 
-    // This needs to be better...
     if (err.statusCode === 401 && err.message === 'Access token has expired.') {
-        login();
-    }
+            if (window.location.pathname !== '/login')
+                window.location.pathname = '/login';
+        }
 }

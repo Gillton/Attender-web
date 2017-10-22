@@ -10,6 +10,8 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
     switch (action.type) {
+        case GET_USER_ERROR:
+            return initialState;
         case GET_USER_END:
             return {
                 userId: action.payload.userId,
