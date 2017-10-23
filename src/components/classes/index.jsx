@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { getClasses } from '../../actions/classActions';
 
@@ -13,9 +14,20 @@ class Classes extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
+        let classList = classes.data.map(c => {
+            return (
+                <span>
+                    <Link to={'/classes/' + c._id}>{c.name}</Link> <Link to={'/classes/' + c._id + '/collect'}>Collect</Link>
+                    <br />
+                </span>
+            );
+        });
         return (
             <div>
-                Classes
+                <center>
+                    {classList}
+                </center>
             </div>
         );
     }
