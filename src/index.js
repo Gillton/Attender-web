@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware } from 'redux';
+import { initializeIcons } from '@uifabric/icons';
 import { Provider } from 'react-redux';
 
 import './index.css';
@@ -13,6 +14,8 @@ import rootReducer from './reducers/rootReducer';
 import registerServiceWorker from './registerServiceWorker';
 
 import { init } from './actions/authActions';
+
+initializeIcons();
 
 const store = createStore(
     rootReducer,
