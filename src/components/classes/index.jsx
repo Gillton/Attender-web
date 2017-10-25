@@ -17,7 +17,7 @@ class Classes extends React.Component {
         const { classes } = this.props;
         let classList = classes.data.map(c => {
             return (
-                <span>
+                <span key={c._id}>
                     <Link to={'/classes/' + c._id}>{c.name}</Link> <Link to={'/classes/' + c._id + '/collect'}>Collect</Link>
                     <br />
                 </span>

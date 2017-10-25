@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Breadcrumb, IBreadcrumbItem } from 'office-ui-fabric-react/lib/Breadcrumb';
+import { Breadcrumb } from 'office-ui-fabric-react/lib/Breadcrumb';
 import { withRouter } from 'react-router-dom';
 
 class BreadCrumb extends React.Component {
