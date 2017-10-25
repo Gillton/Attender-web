@@ -5,7 +5,7 @@ import {
 const initialState = {
     fetched: false,
     fetching: false,
-    data: []
+    data: {}
 }
 
 export default (state = initialState, action={}) => {
@@ -15,7 +15,11 @@ export default (state = initialState, action={}) => {
         case GET_CLASSES_ERROR:
             return {...state, fetching: false}
         case GET_CLASSES_END:
-            return {...state, fetched: true, fetching: false, data: action.payload}
+            let d = {};
+            action.payload.forEach(c => {
+                d[c._id] = c;
+            });
+            return {...state, fetched: true, fetching: false, data: d}
         default:
             return state;
     }

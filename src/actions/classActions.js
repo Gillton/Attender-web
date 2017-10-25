@@ -9,7 +9,6 @@ export function getClasses() {
         dispatch({ type: GET_CLASSES_START });
         axios.get('/api/classes')
             .then(res => {
-                console.log(res.data);
                 dispatch({ type: GET_CLASSES_END, payload: res.data });
             })
             .catch(err => {
