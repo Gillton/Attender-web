@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getClasses } from '../../actions/classActions';
+import { deleteClass, getClasses } from '../../actions/classActions';
 
 class Classes extends React.Component {
 
@@ -18,16 +18,32 @@ class Classes extends React.Component {
         let classList = Object.keys(classes.data).map(id => {
             let c = classes.data[id];
             return (
-                <span key={c._id}>
-                    <Link to={'/classes/' + c._id}>{c.name}</Link> <Link to={'/classes/' + c._id + '/collect'}>Collect</Link>
-                    <br />
-                </span>
+                <tr key={id}>
+                    <td><Link to={'/classes/' + id}>{c.name}</Link></td>
+                    <td>{c.instructor.name}</td>
+                    <td><Link to={'/classes/' + id + '/edit'}>Edit</Link></td>
+                    <td onClick={() => {this.props.deleteClass(id)}}>Delete</td>
+                    <td><Link to={'/classes/' + id + '/collect'}>Collect</Link></td>
+                </tr>
             );
         });
         return (
             <div>
                 <center>
-                    {classList}
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Instructor</th>
+                                <th></th>   
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {classList}
+                        </tbody>
+                    </table>
                 </center>
             </div>
         );
@@ -40,4 +56,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { getClasses })(Classes);
+export default connect(mapStateToProps, { deleteClass, getClasses })(Classes);

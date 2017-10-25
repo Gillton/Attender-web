@@ -2,12 +2,10 @@ import React from 'react';
 
 import { Button } from 'office-ui-fabric-react/lib/Button';
 import { connect } from 'react-redux';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { NormalPeoplePicker } from 'office-ui-fabric-react/lib/Pickers';
 import { Persona, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
-import { getClasses } from '../../actions/classActions';
+import { editClass, getClasses } from '../../actions/classActions';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -15,8 +13,9 @@ class Edit extends React.Component {
         this.state = {
             isLoadingPics: false,
             classId: props.match.params.id,
-            class: props.classes.data[props.match.params.id]
+            currentClass: props.classes.data[props.match.params.id]
         }
+        this.onNameChange = this.onNameChange.bind(this);
     }
 
     componentWillMount() {
@@ -27,30 +26,40 @@ class Edit extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (!nextProps.classes.fetching && !nextProps.classes.fetched)
             this.props.getClasses();
-        this.setState({class: nextProps.classes.data[this.state.classId]});
+        this.setState({ currentClass: nextProps.classes.data[this.state.classId] });
+    }
+
+    onNameChange(newName) {
+        let t = this.state.currentClass;
+        t.name = newName;
+        this.setState({currentClass: t});
     }
 
     render() {
-        console.log(this.state.class);
+        const { currentClass } = this.state;
+
         return (
             <div>
                 <center>
-                    {/* <NormalPeoplePicker
-                        onResolveSuggestions={this._onFilterChanged.bind(this)}
-                        pickerSuggestionsProps={{
-                            suggestionsHeaderText: 'Suggested People',
-                            noResultsFoundText: 'No results found',
-                            searchForMoreText: 'Search',
-                            loadingText: 'Loading...',
-                            isLoading: this.state.isLoadingPics
-                        }}
-                        getTextFromItem={(persona) => persona.primaryText}
-                        onChange={this._onSelectionChanged.bind(this)}
-                        onGetMoreResults={this._onGetMoreResults.bind(this)}
-                        className='ms-PeoplePicker'
-                        key='normal-people-picker' /> */}
                     <br />
-                        Coming soon...
+                    <form ref='form'>
+                        <div>{currentClass === undefined ? '' : currentClass.name}</div>
+                        <div className='col-md-5 col-md-offset-3'>
+                            <TextField
+                                name="name"
+                                placeholder='Name'
+                                value={currentClass === undefined ? '' : currentClass.name}
+                                onChanged={this.onNameChange}
+                            />
+                        </div>
+                        <div className='col-md-1'>
+                            <Button
+                                primary={true}
+                                onClick={() => this.props.editClass(this.state.currentClass)}
+                                text='Save'
+                            />
+                        </div>
+                    </form>
                 </center>
             </div>
         );
@@ -63,4 +72,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { getClasses })(Edit);
+export default connect(mapStateToProps, { editClass, getClasses })(Edit);
