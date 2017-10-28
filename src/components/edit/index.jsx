@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from 'office-ui-fabric-react/lib/Button';
 import { connect } from 'react-redux';
-import { Persona, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
+// import { Persona, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 import { editClass, getClasses } from '../../actions/classActions';
