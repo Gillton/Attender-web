@@ -25,7 +25,7 @@ export function editClass(c) {
         dispatch({ type: EDIT_CLASS_START});
         axios.put('/api/classes/' + c._id, c)
             .then(res => {
-                dispatch({ type: EDIT_CLASS_END, payload: c })
+                dispatch({ type: EDIT_CLASS_END, payload: res.data })
             })
             .catch(err => {
                 dispatch({ type: EDIT_CLASS_ERROR });

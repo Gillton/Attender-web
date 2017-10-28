@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -29,6 +30,13 @@ class Classes extends React.Component {
         });
         return (
             <div>
+                <div style={{float: 'right', paddingRight: '20px'}}>
+                    <DefaultButton
+                        primary={true}
+                        text='New +'
+                        href='/classes/new/edit'        // TODO: route w/ react-router
+                    />
+                </div>
                 <center>
                     <table className='table'>
                         <thead>

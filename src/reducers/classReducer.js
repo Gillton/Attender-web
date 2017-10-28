@@ -31,6 +31,13 @@ export default (state = initialState, action={}) => {
             data[action.payload._id] = action.payload;
             return {...state, data: data}
 
+        case DELETE_CLASS_END:
+            let id = action.payload;
+            console.log(id);
+            let classes = state.data;
+            delete classes[id];
+            return { ...state, data: classes}
+
         default:
             return state;
     }

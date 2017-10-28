@@ -10,11 +10,25 @@ import { editClass, getClasses } from '../../actions/classActions';
 class Edit extends React.Component {
     constructor(props) {
         super(props);
+
+        this.defaultClass = {
+            _id: 'new',
+            name: '',
+            instructor: {
+                _id: '',
+                name: '',
+            },
+            students: []
+        }
+
+        let currentClass = props.classes.data[props.match.params.id];
+
         this.state = {
             isLoadingPics: false,
             classId: props.match.params.id,
-            currentClass: props.classes.data[props.match.params.id]
+            currentClass: props.match.params.id === 'new' ? this.defaultClass : currentClass
         }
+
         this.onNameChange = this.onNameChange.bind(this);
     }
 
@@ -26,7 +40,8 @@ class Edit extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (!nextProps.classes.fetching && !nextProps.classes.fetched)
             this.props.getClasses();
-        this.setState({ currentClass: nextProps.classes.data[this.state.classId] });
+        let classId  = nextProps.match.params.id;
+        this.setState({ currentClass: classId === 'new' ? this.defaultClass : nextProps.classes.data[classId] });
     }
 
     onNameChange(newName) {
@@ -55,7 +70,7 @@ class Edit extends React.Component {
                         <div className='col-md-1'>
                             <Button
                                 primary={true}
-                                onClick={() => this.props.editClass(this.state.currentClass)}
+                                onClick={() => this.props.editClass(currentClass)}
                                 text='Save'
                             />
                         </div>
